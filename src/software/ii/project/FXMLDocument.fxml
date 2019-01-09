@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="software.ii.project.FXMLDocumentController">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <TableView fx:id="monthTable" layoutX="10.0" layoutY="30.0" prefHeight="204.0" prefWidth="336.0">
+        <columns>
+          <TableColumn fx:id="sunday" prefWidth="48.0" text="Su" />
+          <TableColumn fx:id="monday" prefWidth="48.0" text="Mo" />
+            <TableColumn fx:id="tuesday" prefWidth="48.0" text="Tu" />
+            <TableColumn fx:id="wednesday" prefWidth="48.0" text="Wed" />
+            <TableColumn fx:id="thursday" prefWidth="48.0" text="Thu" />
+            <TableColumn fx:id="friday" prefWidth="48.0" text="Fr" />
+            <TableColumn fx:id="saturday" prefWidth="48.0" text="Sat" />
+        </columns>
+      </TableView>
+    </children>
+</AnchorPane>
