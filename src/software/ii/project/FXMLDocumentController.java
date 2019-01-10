@@ -26,6 +26,8 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        monthTable.getSelectionModel().setCellSelectionEnabled(true);
+        
         sunday.setCellValueFactory(new PropertyValueFactory<Days, String>("sunday"));
         monday.setCellValueFactory(new PropertyValueFactory<Days, String>("monday"));
         tuesday.setCellValueFactory(new PropertyValueFactory<Days, String>("tuesday"));
