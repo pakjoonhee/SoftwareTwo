@@ -1,29 +1,32 @@
-package software.ii.project;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package AppointmentDetails;
 
 import Models.Days;
 import static Models.Utility.getDay;
 import static Models.Utility.getDayOfWeekAsInt;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
-public class FXMLDocumentController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author pakjo
+ */
+public class AppointmentDetailsController implements Initializable {
     @FXML private Button loginButton;
     @FXML private TableView<Days> monthTable;
     @FXML private TableColumn<Days, String> sunday;
@@ -86,19 +89,6 @@ public class FXMLDocumentController implements Initializable {
         }
 
         monthTable.setItems(days);
-    }
+    }    
     
-    public void logInAction(ActionEvent event) throws IOException 
-    {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
-        Parent tableViewParent = loader.load();
-        
-        Scene tableViewScene = new Scene(tableViewParent);
-        
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-        window.setScene(tableViewScene);
-        window.show();
-    }
 }

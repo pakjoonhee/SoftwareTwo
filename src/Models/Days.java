@@ -1,6 +1,6 @@
+package Models;
 
-package software.ii.project;
-
+import software.ii.project.*;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Days {

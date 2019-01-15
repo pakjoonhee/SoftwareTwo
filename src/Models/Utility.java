@@ -1,5 +1,6 @@
-package software.ii.project;
+package Models;
 
+import software.ii.project.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
