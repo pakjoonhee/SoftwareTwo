@@ -36,46 +36,45 @@ public class FXMLDocumentController implements Initializable {
         friday.setCellValueFactory(new PropertyValueFactory<Days, String>("friday"));
         saturday.setCellValueFactory(new PropertyValueFactory<Days, String>("saturday"));
         
-        LocalDate date = LocalDate.of(2019, 6, 20);
+        LocalDate date = LocalDate.of(2019, 01, 01);
         int numDays = date.lengthOfMonth();
         
         String firstDay = getDay("01", "01", "2019");
         int convertDay = getDayOfWeekAsInt(firstDay);
         
         ArrayList<String> dayList = new ArrayList<>();
-        
-        int count = 1;
-        
-        while(numDays > 0) {
-            for(int i=0; i<7; i++) {
-                if(i >= convertDay) {
-                    if (count==1 || i == convertDay) {
-                        dayList.add(Integer.toString(count));
-                        count++;
-                        numDays -= 1;
-                    } else if(count > 1) {
-                        dayList.add(Integer.toString(count));
-                        count++;
-                        numDays -= 1;
-                    } 
+        ObservableList<Days> days = FXCollections.observableArrayList();
 
-                } else {
+        int count = 0;
+        int day = 1;
+
+        while(numDays >= 0) {
+            if(dayList.size() == 7) {
+                days.add(new Days(dayList.get(0), dayList.get(1), dayList.get(2), 
+                    dayList.get(3), dayList.get(4), dayList.get(5),dayList.get(6)));
+                dayList.clear();
+            } else if(numDays == 0) {
+                while(!dayList.isEmpty()) {
                     dayList.add(" ");
-                }
+                    if(dayList.size() == 7) {
+                        days.add(new Days(dayList.get(0), dayList.get(1), dayList.get(2), 
+                            dayList.get(3), dayList.get(4), dayList.get(5),dayList.get(6)));
+                        dayList.clear();
+                    }
+                } 
+            }
+            if(count >= convertDay) {
+                if (count>=1) {
+                    dayList.add(Integer.toString(day));
+                    day++;
+                    numDays--;
+                } 
+            } else if(count <= convertDay) {
+                dayList.add(" ");
+                count++;
             }
         }
-        
-        
-        ObservableList<Days> days = FXCollections.observableArrayList();
-        
-        days.add(new Days(dayList.get(0), dayList.get(0), dayList.get(2), 
-                dayList.get(3), dayList.get(4), dayList.get(5),dayList.get(6)));
-        days.add(new Days("6", "7", "8", "9", "10", "11", "12"));
-        days.add(new Days("13", "14", "15", "16", "17", "18", "19"));
-        days.add(new Days("20", "21", "22", "23", "24", "25", "26"));
-        days.add(new Days("27", "28", "29", "30", "31", "", ""));
-        
-        
+
         monthTable.setItems(days);
         
         
