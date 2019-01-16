@@ -21,11 +21,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-/**
- * FXML Controller class
- *
- * @author pakjo
- */
 public class AppointmentDetailsController implements Initializable {
     @FXML private Button loginButton;
     @FXML private TableView<Days> monthTable;

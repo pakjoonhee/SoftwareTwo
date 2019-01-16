@@ -1,15 +1,9 @@
 package software.ii.project;
 
-import Models.Days;
-import static Models.Utility.getDay;
-import static Models.Utility.getDayOfWeekAsInt;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,88 +11,41 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class FXMLDocumentController implements Initializable {
+    @FXML private TextField userNameField;
+    @FXML private TextField passwordField;
     @FXML private Button loginButton;
-    @FXML private TableView<Days> monthTable;
-    @FXML private TableColumn<Days, String> sunday;
-    @FXML private TableColumn<Days, String> monday;
-    @FXML private TableColumn<Days, String> tuesday;
-    @FXML private TableColumn<Days, String> wednesday;
-    @FXML private TableColumn<Days, String> thursday;
-    @FXML private TableColumn<Days, String> friday;
-    @FXML private TableColumn<Days, String> saturday;
-    
+    private String db = "U05xD3";
+    private String url = "jdbc:mysql://52.206.157.109/" + db;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        monthTable.getSelectionModel().setCellSelectionEnabled(true);
-        
-        sunday.setCellValueFactory(new PropertyValueFactory<Days, String>("sunday"));
-        monday.setCellValueFactory(new PropertyValueFactory<Days, String>("monday"));
-        tuesday.setCellValueFactory(new PropertyValueFactory<Days, String>("tuesday"));
-        wednesday.setCellValueFactory(new PropertyValueFactory<Days, String>("wednesday"));
-        thursday.setCellValueFactory(new PropertyValueFactory<Days, String>("thursday"));
-        friday.setCellValueFactory(new PropertyValueFactory<Days, String>("friday"));
-        saturday.setCellValueFactory(new PropertyValueFactory<Days, String>("saturday"));
-        
-        LocalDate date = LocalDate.of(2019, 01, 01);
-        int numDays = date.lengthOfMonth();
-        
-        String firstDay = getDay("01", "01", "2019");
-        int convertDay = getDayOfWeekAsInt(firstDay);
-        
-        ArrayList<String> dayList = new ArrayList<>();
-        ObservableList<Days> days = FXCollections.observableArrayList();
-
-        int count = 0;
-        int day = 1;
-
-        while(numDays >= 0) {
-            if(dayList.size() == 7) {
-                days.add(new Days(dayList.get(0), dayList.get(1), dayList.get(2), 
-                    dayList.get(3), dayList.get(4), dayList.get(5),dayList.get(6)));
-                dayList.clear();
-            } else if(numDays == 0) {
-                while(!dayList.isEmpty()) {
-                    dayList.add(" ");
-                    if(dayList.size() == 7) {
-                        days.add(new Days(dayList.get(0), dayList.get(1), dayList.get(2), 
-                            dayList.get(3), dayList.get(4), dayList.get(5),dayList.get(6)));
-                        dayList.clear();
-                    }
-                } 
-            }
-            if(count >= convertDay) {
-                if (count>=1) {
-                    dayList.add(Integer.toString(day));
-                    day++;
-                    numDays--;
-                } 
-            } else if(count <= convertDay) {
-                dayList.add(" ");
-                count++;
-            }
-        }
-
-        monthTable.setItems(days);
+       
     }
     
-    public void logInAction(ActionEvent event) throws IOException 
+    public void logInAction(ActionEvent event) throws IOException, SQLException, Exception, ClassNotFoundException 
     {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
-        Parent tableViewParent = loader.load();
+        if(DBConnection.makeConnection(url, userNameField.getText(), passwordField.getText())) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
+            Parent tableViewParent = loader.load();
+
+            Scene tableViewScene = new Scene(tableViewParent);
+
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+            window.setScene(tableViewScene);
+            window.show();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "The username and password did not match!!", ButtonType.OK);
+            alert.showAndWait();
+        }
         
-        Scene tableViewScene = new Scene(tableViewParent);
-        
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-        window.setScene(tableViewScene);
-        window.show();
     }
 }
