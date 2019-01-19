@@ -8,10 +8,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="675.0" prefWidth="892.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="AppointmentDetails.AppointmentDetailsController">
+<AnchorPane id="AnchorPane" prefHeight="675.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppointmentDetails.AppointmentDetailsController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <TableView fx:id="monthTable" layoutX="270.0" layoutY="65.0" prefHeight="215.0" prefWidth="385.0">
+      <TableView fx:id="monthTable" layoutX="358.0" layoutY="83.0" prefHeight="215.0" prefWidth="385.0">
         <columns>
           <TableColumn fx:id="sunday" prefWidth="55.0" text="Su" />
           <TableColumn fx:id="monday" prefWidth="55.0" text="Mo" />
@@ -22,19 +22,21 @@
             <TableColumn fx:id="saturday" prefWidth="55.0" text="Sat" />
         </columns>
       </TableView>
-      <Text layoutX="387.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="January" textAlignment="CENTER" wrappingWidth="151.13671875">
+      <Text layoutX="475.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="January" textAlignment="CENTER" wrappingWidth="151.13671875">
          <font>
             <Font size="26.0" />
          </font>
       </Text>
-      <TableView layoutX="32.0" layoutY="338.0" prefHeight="239.0" prefWidth="385.0">
+      <TableView fx:id="customerTable" layoutX="7.0" layoutY="338.0" prefHeight="239.0" prefWidth="680.0">
         <columns>
-          <TableColumn prefWidth="124.0" text="Customer Name" />
-          <TableColumn prefWidth="137.0" text="Number" />
-            <TableColumn prefWidth="123.0" text="Email" />
+            <TableColumn fx:id="customerID" prefWidth="67.0" text="ID" />
+          <TableColumn fx:id="customerName" prefWidth="132.0" text="Customer Name" />
+            <TableColumn fx:id="customerAddress" prefWidth="197.0" text="Customer Address" />
+            <TableColumn fx:id="customerEmail" prefWidth="154.0" text="Email" />
+          <TableColumn fx:id="customerNumber" prefWidth="129.0" text="Number" />
         </columns>
       </TableView>
-      <TableView layoutX="463.0" layoutY="338.0" prefHeight="239.0" prefWidth="395.0">
+      <TableView layoutX="728.0" layoutY="335.0" prefHeight="239.0" prefWidth="395.0">
         <columns>
             <TableColumn prefWidth="95.0" text="Date" />
             <TableColumn prefWidth="83.0" text="Time" />
@@ -42,21 +44,21 @@
             <TableColumn prefWidth="114.0" text="Name" />
         </columns>
       </TableView>
-      <Text layoutX="149.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Details">
+      <Text layoutX="14.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Details">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Text layoutX="570.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment Details">
+      <Text layoutX="728.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment Details">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="loginButton" layoutX="32.0" layoutY="589.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="463.0" layoutY="589.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="511.0" layoutY="589.0" mnemonicParsing="false" text="Modify" />
-      <Button layoutX="577.0" layoutY="589.0" mnemonicParsing="false" text="Delete" />
-      <Button layoutX="80.0" layoutY="589.0" mnemonicParsing="false" text="Modify" />
-      <Button layoutX="149.0" layoutY="589.0" mnemonicParsing="false" text="Delete" />
+      <Button fx:id="addCustomerDetailsButton" layoutX="14.0" layoutY="590.0" mnemonicParsing="false" onAction="#addCustomerDetails" text="Add" />
+      <Button layoutX="728.0" layoutY="586.0" mnemonicParsing="false" text="Add" />
+      <Button layoutX="776.0" layoutY="586.0" mnemonicParsing="false" text="Modify" />
+      <Button layoutX="842.0" layoutY="586.0" mnemonicParsing="false" text="Delete" />
+      <Button layoutX="62.0" layoutY="590.0" mnemonicParsing="false" text="Modify" />
+      <Button layoutX="131.0" layoutY="590.0" mnemonicParsing="false" text="Delete" />
     </children>
 </AnchorPane>

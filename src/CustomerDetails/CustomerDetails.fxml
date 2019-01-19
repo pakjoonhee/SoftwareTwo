@@ -1,16 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="Customer.CustomerDetailsController">
-   <children>
-      <Button layoutX="258.0" layoutY="265.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="85.0" text="Login">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="CustomerDetails.CustomerDetailsController">
+    <children>
+      <HBox layoutX="184.0" layoutY="334.0" prefHeight="52.0" prefWidth="141.0" spacing="20.0" />
+      <VBox layoutX="25.0" layoutY="63.0" prefHeight="258.0" prefWidth="323.0">
+         <children>
+            <HBox prefHeight="41.0" prefWidth="198.0">
+               <children>
+                  <Label prefWidth="80.0" text="ID">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField accessibleRole="BUTTON" disable="true" editable="false" promptText="Auto Gen - Disabled" />
+               </children>
+            </HBox>
+            <HBox prefHeight="41.0" prefWidth="198.0">
+               <children>
+                  <Label prefWidth="80.0" text="Name">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextField fx:id="partNameTextField">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="41.0" prefWidth="198.0">
+               <children>
+                  <Label prefWidth="80.0" text="Address" />
+                  <TextField fx:id="partInventoryTextField" prefHeight="25.0" prefWidth="224.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="41.0" prefWidth="198.0">
+               <children>
+                  <Label prefWidth="80.0" text="Email" />
+                  <TextField fx:id="partPriceTextField" />
+               </children>
+            </HBox>
+            <HBox prefHeight="41.0" prefWidth="198.0">
+               <children>
+                  <Label fx:id="inHouseIDLabel" minWidth="80.0" text="Number" />
+                  <TextField fx:id="companyOrID" />
+               </children>
+            </HBox>
+            <HBox prefHeight="41.0" prefWidth="198.0" />
+         </children>
+      </VBox>
+      <Label layoutX="17.0" layoutY="13.0" text="Add Customer">
          <font>
-            <Font size="22.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
-      </Button>
+      </Label>
+      <Button layoutX="25.0" layoutY="319.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Save" />
+      <Button layoutX="124.0" layoutY="319.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Cancel" />
    </children>
 </AnchorPane>

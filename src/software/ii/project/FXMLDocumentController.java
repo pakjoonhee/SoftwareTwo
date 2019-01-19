@@ -1,9 +1,14 @@
 package software.ii.project;
 
+import CustomerDetails.CustomerDetailsController;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import static software.ii.project.DBConnection.conn;
 
 public class FXMLDocumentController implements Initializable {
     @FXML private TextField userNameField;
@@ -23,6 +29,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML private Button loginButton;
     private String db = "U05xD3";
     private String url = "jdbc:mysql://52.206.157.109/" + db;
+    private String user = "U05xD3";
+    private String pass = "53688636419";
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        

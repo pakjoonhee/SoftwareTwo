@@ -10,7 +10,7 @@ public class DBConnection {
     private static final String user = "U05xD3";
     private static final String pass = "53688636419";
     private static final String driver = "com.mysql.jdbc.Driver";
-    static Connection conn;
+    public static Connection conn;
     
     public static boolean makeConnection(String url, String user, String pass) throws ClassNotFoundException {
         try {

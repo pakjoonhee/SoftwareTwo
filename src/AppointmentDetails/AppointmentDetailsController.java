@@ -1,28 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package AppointmentDetails;
 
+import CustomerDetails.CustomerDetailsController;
+import Models.Customer;
 import Models.Days;
 import static Models.Utility.getDay;
 import static Models.Utility.getDayOfWeekAsInt;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import static software.ii.project.DBConnection.conn;
 
 public class AppointmentDetailsController implements Initializable {
-    @FXML private Button loginButton;
     @FXML private TableView<Days> monthTable;
     @FXML private TableColumn<Days, String> sunday;
     @FXML private TableColumn<Days, String> monday;
@@ -32,8 +41,19 @@ public class AppointmentDetailsController implements Initializable {
     @FXML private TableColumn<Days, String> friday;
     @FXML private TableColumn<Days, String> saturday;
     
+    @FXML private TableView<Customer> customerTable;
+    @FXML private TableColumn<Customer, Integer> customerID;
+    @FXML private TableColumn<Customer, String> customerName;
+    @FXML private TableColumn<Customer, String> customerAddress;
+    @FXML private TableColumn<Customer, String> customerEmail;
+    @FXML private TableColumn<Customer, String> customerNumber;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        initMonthTable();
+        initCustomerTable();
+    }    
+    public void initMonthTable() {
         monthTable.getSelectionModel().setCellSelectionEnabled(true);
         
         sunday.setCellValueFactory(new PropertyValueFactory<Days, String>("sunday"));
@@ -84,6 +104,44 @@ public class AppointmentDetailsController implements Initializable {
         }
 
         monthTable.setItems(days);
-    }    
+    }
     
+    public void initCustomerTable() {
+        ObservableList<Customer> customers = FXCollections.observableArrayList();
+        
+        customerID.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("customerID"));
+        customerName.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerName"));
+        customerAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerAddress"));
+        customerEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerEmail"));
+        customerNumber.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerNumber"));
+        
+        try {
+            Statement statement = conn.createStatement();
+            String sqlStatement = "SELECT * FROM customer_tbl";
+            ResultSet result = statement.executeQuery(sqlStatement);
+            
+            while(result.next()) 
+            {
+                customers.add(new Customer(result.getInt("CustomerID"), result.getString("CustomerName"), 
+                              result.getString("Address"), result.getString("Email"), result.getString("Number")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        customerTable.setItems(customers);
+    }
+    
+    public void addCustomerDetails(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/CustomerDetails/CustomerDetails.fxml"));
+        Parent tableViewParent = loader.load();
+
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
 }
