@@ -6,14 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 public class Appointment {
     private SimpleIntegerProperty customerID;
     private SimpleStringProperty appointmentDate;
-    private SimpleStringProperty appointmentName;
+    private SimpleStringProperty appointmentTime;
     private SimpleStringProperty appointmentType;
     private SimpleStringProperty customerName;
 
-    public Appointment(Integer customerID, String appointmentDate, String appointmentName, String appointmentType, String customerName) {
+    public Appointment(Integer customerID, String appointmentDate, String appointmentTime, String appointmentType, String customerName) {
         this.customerID = new SimpleIntegerProperty(customerID);
         this.appointmentDate = new SimpleStringProperty(appointmentDate);
-        this.appointmentName = new SimpleStringProperty(appointmentName);
+        this.appointmentTime = new SimpleStringProperty(appointmentTime);
         this.appointmentType = new SimpleStringProperty(appointmentType);
         this.customerName = new SimpleStringProperty(customerName);
     }
@@ -34,12 +34,12 @@ public class Appointment {
         this.appointmentDate = appointmentDate;
     }
 
-    public String getAppointmentName() {
-        return appointmentName.get();
+    public String getAppointmentTime() {
+        return appointmentTime.get();
     }
 
-    public void setAppointmentName(SimpleStringProperty appointmentName) {
-        this.appointmentName = appointmentName;
+    public void setAppointmentTime(SimpleStringProperty appointmentTime) {
+        this.appointmentTime = appointmentTime;
     }
 
     public String getAppointmentType() {
