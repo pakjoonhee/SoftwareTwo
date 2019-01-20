@@ -1,4 +1,4 @@
-package AppointmentDetails;
+package MainScreen;
 
 import CustomerDetails.CustomerDetailsController;
 import CustomerDetails.EditCustomerDetailsController;
@@ -28,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import static software.ii.project.DBConnection.conn;
 
-public class AppointmentDetailsController implements Initializable {
+public class MainScreenController implements Initializable {
     @FXML private TableView<Customer> customerTable;
     @FXML private TableColumn<Customer, Integer> customerID;
     @FXML private TableColumn<Customer, String> customerName;

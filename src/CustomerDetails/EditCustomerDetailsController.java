@@ -40,7 +40,7 @@ public class EditCustomerDetailsController implements Initializable {
     
     public void changeScreenGoBack(ActionEvent event) throws IOException 
     {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/MainScreen/MainScreen.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -64,7 +64,7 @@ public class EditCustomerDetailsController implements Initializable {
             ps.executeUpdate();
             ps.close();
 
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
+            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/MainScreen/MainScreen.fxml"));
             Scene tableViewScene = new Scene(tableViewParent);
 
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -77,7 +77,7 @@ public class EditCustomerDetailsController implements Initializable {
           throw se;
         }
         
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/MainScreen/MainScreen.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

@@ -32,7 +32,7 @@ public class CustomerDetailsController implements Initializable {
     
     public void changeScreenGoBack(ActionEvent event) throws IOException 
     {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/MainScreen/MainScreen.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -46,7 +46,7 @@ public class CustomerDetailsController implements Initializable {
         String sqlStatement = ("INSERT INTO `appointments_tbl`(CustomerID, AppointmentDate, AppointmentTime, AppointmentType, CustomerName) VALUE ('"+"1"+"','"+customerName.getText()+"','"+customerAddress.getText()+"','"+customerEmail.getText()+"','"+customerNumber.getText()+"')");
         statement.executeUpdate(sqlStatement);
         
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/MainScreen/MainScreen.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();

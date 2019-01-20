@@ -41,7 +41,7 @@ public class FXMLDocumentController implements Initializable {
         // if(DBConnection.makeConnection(url, userNameField.getText(), passwordField.getText())) {
         if(DBConnection.makeConnection(url, "U05xD3", "53688636419")) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/AppointmentDetails/AppointmentDetails.fxml"));
+            loader.setLocation(getClass().getResource("/MainScreen/MainScreen.fxml"));
             Parent tableViewParent = loader.load();
 
             Scene tableViewScene = new Scene(tableViewParent);
