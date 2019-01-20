@@ -23,7 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import static software.ii.project.DBConnection.conn;
 
-public class FXMLDocumentController implements Initializable {
+public class LoginScreenController implements Initializable {
     @FXML private TextField userNameField;
     @FXML private TextField passwordField;
     @FXML private Button loginButton;
