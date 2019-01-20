@@ -8,14 +8,14 @@ public class Appointment {
     private SimpleStringProperty appointmentDate;
     private SimpleStringProperty appointmentTime;
     private SimpleStringProperty appointmentType;
-    private SimpleStringProperty customerName;
+    private SimpleStringProperty consultantName;
 
-    public Appointment(Integer customerID, String appointmentDate, String appointmentTime, String appointmentType, String customerName) {
+    public Appointment(Integer customerID, String appointmentDate, String appointmentTime, String appointmentType, String consultantName) {
         this.customerID = new SimpleIntegerProperty(customerID);
         this.appointmentDate = new SimpleStringProperty(appointmentDate);
         this.appointmentTime = new SimpleStringProperty(appointmentTime);
         this.appointmentType = new SimpleStringProperty(appointmentType);
-        this.customerName = new SimpleStringProperty(customerName);
+        this.consultantName = new SimpleStringProperty(consultantName);
     }
 
     public Integer getCustomerID() {
@@ -50,11 +50,11 @@ public class Appointment {
         this.appointmentType = appointmentType;
     }
 
-    public String getCustomerName() {
-        return customerName.get();
+    public String getConsultantName() {
+        return consultantName.get();
     }
 
-    public void setCustomerName(SimpleStringProperty customerName) {
-        this.customerName = customerName;
+    public void setConsultantName(SimpleStringProperty consultantName) {
+        this.consultantName = consultantName;
     }
 }

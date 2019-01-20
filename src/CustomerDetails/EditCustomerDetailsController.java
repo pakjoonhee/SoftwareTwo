@@ -27,7 +27,7 @@ public class EditCustomerDetailsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       
     }
     
     public void initCustomerData(Customer customer, Integer rowNumber) {
@@ -85,7 +85,5 @@ public class EditCustomerDetailsController implements Initializable {
         window.setScene(tableViewScene);
         window.show();
     }
-
-    
     
 }

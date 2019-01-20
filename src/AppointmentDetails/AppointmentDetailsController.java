@@ -41,7 +41,7 @@ public class AppointmentDetailsController implements Initializable {
     @FXML private TableColumn<Appointment, String> appointmentDate;
     @FXML private TableColumn<Appointment, String> appointmentTime;
     @FXML private TableColumn<Appointment, String> appointmentType;
-    @FXML private TableColumn<Appointment, String> appointmentCustomerName;
+    @FXML private TableColumn<Appointment, String> consultantName;
     private Integer selectedID;
     
     @Override
@@ -90,7 +90,7 @@ public class AppointmentDetailsController implements Initializable {
         appointmentDate.setCellValueFactory(new PropertyValueFactory<Appointment, String>("appointmentDate"));
         appointmentTime.setCellValueFactory(new PropertyValueFactory<Appointment, String>("appointmentTime"));
         appointmentType.setCellValueFactory(new PropertyValueFactory<Appointment, String>("appointmentType"));
-        appointmentCustomerName.setCellValueFactory(new PropertyValueFactory<Appointment, String>("customerName"));
+        consultantName.setCellValueFactory(new PropertyValueFactory<Appointment, String>("consultantName"));
         
         try {
             Statement statement = conn.createStatement();

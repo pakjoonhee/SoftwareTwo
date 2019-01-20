@@ -24,7 +24,7 @@
             <TableColumn fx:id="appointmentDate" prefWidth="95.0" text="Date" />
             <TableColumn fx:id="appointmentTime" prefWidth="83.0" text="Time" />
           <TableColumn fx:id="appointmentType" prefWidth="102.0" text="Type" />
-            <TableColumn fx:id="appointmentCustomerName" prefWidth="155.0" text="Name" />
+            <TableColumn fx:id="consultantName" prefWidth="155.0" text="Consultant Name" />
         </columns>
       </TableView>
       <Text layoutX="110.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Details">
