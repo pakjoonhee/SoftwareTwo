@@ -45,7 +45,7 @@
             <HBox prefHeight="41.0" prefWidth="198.0">
                <children>
                   <Label prefWidth="100.0" text="Time" />
-                  <ComboBox fx:id="timesComboBox" prefWidth="150.0" />
+                  <ComboBox fx:id="timesComboBox" onAction="#handleTimeBox" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox prefHeight="41.0" prefWidth="198.0">
@@ -57,7 +57,7 @@
             <HBox prefHeight="41.0" prefWidth="198.0">
                <children>
                   <Label fx:id="inHouseIDLabel" minWidth="80.0" prefWidth="100.0" text="Consultant Name" />
-                  <ComboBox fx:id="consultantNamesComboBox" prefWidth="150.0" />
+                  <ComboBox fx:id="consultantNamesComboBox" onAction="#handleConsultantBox" prefWidth="150.0" />
                </children>
             </HBox>
             <HBox prefHeight="41.0" prefWidth="198.0" />

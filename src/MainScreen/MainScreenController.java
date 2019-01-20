@@ -38,12 +38,14 @@ public class MainScreenController implements Initializable {
     @FXML private TableColumn<Customer, String> customerNumber;
     
     @FXML private TableView<Appointment> appointmentTable;
+    @FXML private TableColumn<Appointment, Integer> appointmentKeyID;
     @FXML private TableColumn<Appointment, Integer> appointmentCustomerID;
     @FXML private TableColumn<Appointment, String> appointmentDate;
     @FXML private TableColumn<Appointment, String> appointmentTime;
     @FXML private TableColumn<Appointment, String> appointmentType;
     @FXML private TableColumn<Appointment, String> consultantName;
-    private Integer selectedID;
+    private Integer customerSelectedID;
+    private Integer appointmentSelectedID;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,10 +54,17 @@ public class MainScreenController implements Initializable {
     
     public void ifRowClicked() {
         Customer selectedRow = customerTable.getSelectionModel().getSelectedItem();
-        selectedID = selectedRow.getCustomerID();
+        customerSelectedID = selectedRow.getCustomerID();
         
-        System.out.print(selectedID);
-        initAppointmentTable(selectedID);
+        System.out.print(customerSelectedID);
+        initAppointmentTable(customerSelectedID);
+    }
+    
+    public void ifAppointmentRowClicked() {
+        Appointment selectedRow = appointmentTable.getSelectionModel().getSelectedItem();
+        appointmentSelectedID = selectedRow.getKeyID();
+        
+        System.out.print(appointmentSelectedID);
     }
     
     public void initCustomerTable() {
@@ -87,6 +96,7 @@ public class MainScreenController implements Initializable {
     public void initAppointmentTable(Integer selectedID) {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         
+        appointmentKeyID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("keyID"));
         appointmentCustomerID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("customerID"));
         appointmentDate.setCellValueFactory(new PropertyValueFactory<Appointment, String>("appointmentDate"));
         appointmentTime.setCellValueFactory(new PropertyValueFactory<Appointment, String>("appointmentTime"));
@@ -100,7 +110,8 @@ public class MainScreenController implements Initializable {
             
             while(result.next()) 
             {
-                appointments.add(new Appointment(result.getInt("CustomerID"), result.getString("AppointmentDate"), 
+                //double check this please
+                appointments.add(new Appointment(result.getInt("KeyID"), result.getInt("CustomerID"), result.getString("AppointmentDate"), 
                               result.getString("AppointmentTime"), result.getString("AppointmentType"), result.getString("CustomerName")));
             }
         } catch (SQLException ex) {
@@ -145,9 +156,16 @@ public class MainScreenController implements Initializable {
     
     public void deleteCustomerDetails() throws SQLException {
         Statement statement = conn.createStatement();
-        String sqlStatement = ("DELETE FROM customer_tbl WHERE CustomerID = " + selectedID + ";");
+        String sqlStatement = ("DELETE FROM customer_tbl WHERE CustomerID = " + customerSelectedID + ";");
         statement.executeUpdate(sqlStatement);
         initCustomerTable();
+    }
+    
+    public void deleteAppointmentDetails() throws SQLException {
+        Statement statement = conn.createStatement();
+        String sqlStatement = ("DELETE FROM appointments_tbl WHERE KeyID = " + appointmentSelectedID + ";");
+        statement.executeUpdate(sqlStatement);
+        initAppointmentTable(customerSelectedID);
     }
     
     public void addAppointmentDetails(ActionEvent event) throws IOException {

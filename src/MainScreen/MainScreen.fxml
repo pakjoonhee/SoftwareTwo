@@ -11,16 +11,17 @@
     <children>
       <TableView fx:id="customerTable" layoutX="103.0" layoutY="61.0" onMouseClicked="#ifRowClicked" prefHeight="239.0" prefWidth="680.0">
         <columns>
-            <TableColumn fx:id="customerID" prefWidth="67.0" text="ID" />
+            <TableColumn fx:id="customerID" prefWidth="67.0" text="Cust ID" />
           <TableColumn fx:id="customerName" prefWidth="132.0" text="Customer Name" />
             <TableColumn fx:id="customerAddress" prefWidth="197.0" text="Customer Address" />
             <TableColumn fx:id="customerEmail" prefWidth="154.0" text="Email" />
           <TableColumn fx:id="customerNumber" prefWidth="129.0" text="Number" />
         </columns>
       </TableView>
-      <TableView fx:id="appointmentTable" layoutX="194.0" layoutY="377.0" prefHeight="239.0" prefWidth="512.0">
+      <TableView fx:id="appointmentTable" layoutX="157.0" layoutY="372.0" onMouseClicked="#ifAppointmentRowClicked" prefHeight="239.0" prefWidth="587.0">
         <columns>
-            <TableColumn fx:id="appointmentCustomerID" prefWidth="76.0" text="ID" />
+            <TableColumn fx:id="appointmentKeyID" prefWidth="75.0" text="Key ID" />
+            <TableColumn fx:id="appointmentCustomerID" prefWidth="76.0" text="Cust ID" />
             <TableColumn fx:id="appointmentDate" prefWidth="95.0" text="Date" />
             <TableColumn fx:id="appointmentTime" prefWidth="83.0" text="Time" />
           <TableColumn fx:id="appointmentType" prefWidth="102.0" text="Type" />
@@ -32,7 +33,7 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text layoutX="194.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment Details">
+      <Text layoutX="162.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment Details">
          <font>
             <Font size="20.0" />
          </font>
@@ -40,7 +41,7 @@
       <Button fx:id="addCustomerDetailsButton" layoutX="110.0" layoutY="313.0" mnemonicParsing="false" onAction="#addCustomerDetails" text="Add" />
       <Button layoutX="194.0" layoutY="628.0" mnemonicParsing="false" onAction="#addAppointmentDetails" text="Add" />
       <Button layoutX="242.0" layoutY="628.0" mnemonicParsing="false" onAction="#changeScreenModifyAppointment" text="Modify" />
-      <Button layoutX="308.0" layoutY="628.0" mnemonicParsing="false" text="Delete" />
+      <Button layoutX="308.0" layoutY="628.0" mnemonicParsing="false" onAction="#deleteAppointmentDetails" text="Delete" />
       <Button layoutX="158.0" layoutY="313.0" mnemonicParsing="false" onAction="#changeScreenModifyCustomer" text="Modify" />
       <Button layoutX="227.0" layoutY="313.0" mnemonicParsing="false" onAction="#deleteCustomerDetails" text="Delete" />
     </children>

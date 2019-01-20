@@ -78,16 +78,13 @@ public class EditAppointmentDetailsController implements Initializable {
         try
         {
             PreparedStatement ps = conn.prepareStatement(
-              "UPDATE appointments_tbl SET AppointmentDate = ?, AppointmentTime = ?, AppointmentType = ?, CustomerName = ? WHERE AppointmentDate = ? AND AppointmentTime = ? AND AppointmentType = ? AND CustomerName = ?");
+              "UPDATE appointments_tbl SET AppointmentDate = ?, AppointmentTime = ?, AppointmentType = ?, CustomerName = ? WHERE KeyID = ?");
 
             ps.setString(1,appointmentDate.getText());
             ps.setString(2,selectedTime);
             ps.setString(3,appointmentType.getText());
             ps.setString(4,selectedConsultant);
-            ps.setString(5,appointmentDate.getText());
-            ps.setString(6,selectedTime);
-            ps.setString(7,appointmentType.getText());
-            ps.setString(8,selectedConsultant);
+            ps.setInt(5,appointment.getKeyID());
 
             ps.executeUpdate();
             ps.close();

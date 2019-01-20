@@ -4,18 +4,28 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Appointment {
+    private SimpleIntegerProperty keyID;
     private SimpleIntegerProperty customerID;
     private SimpleStringProperty appointmentDate;
     private SimpleStringProperty appointmentTime;
     private SimpleStringProperty appointmentType;
     private SimpleStringProperty consultantName;
 
-    public Appointment(Integer customerID, String appointmentDate, String appointmentTime, String appointmentType, String consultantName) {
+    public Appointment(Integer keyID, Integer customerID, String appointmentDate, String appointmentTime, String appointmentType, String consultantName) {
+        this.keyID = new SimpleIntegerProperty(keyID);
         this.customerID = new SimpleIntegerProperty(customerID);
         this.appointmentDate = new SimpleStringProperty(appointmentDate);
         this.appointmentTime = new SimpleStringProperty(appointmentTime);
         this.appointmentType = new SimpleStringProperty(appointmentType);
         this.consultantName = new SimpleStringProperty(consultantName);
+    }
+    
+    public Integer getKeyID() {
+        return keyID.get();
+    }
+
+    public void setKeyID(SimpleIntegerProperty keyID) {
+        this.keyID = keyID;
     }
 
     public Integer getCustomerID() {
