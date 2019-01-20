@@ -38,8 +38,8 @@
          </font>
       </Text>
       <Button fx:id="addCustomerDetailsButton" layoutX="110.0" layoutY="313.0" mnemonicParsing="false" onAction="#addCustomerDetails" text="Add" />
-      <Button layoutX="194.0" layoutY="628.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="242.0" layoutY="628.0" mnemonicParsing="false" text="Modify" />
+      <Button layoutX="194.0" layoutY="628.0" mnemonicParsing="false" onAction="#addAppointmentDetails" text="Add" />
+      <Button layoutX="242.0" layoutY="628.0" mnemonicParsing="false" onAction="#changeScreenModifyAppointment" text="Modify" />
       <Button layoutX="308.0" layoutY="628.0" mnemonicParsing="false" text="Delete" />
       <Button layoutX="158.0" layoutY="313.0" mnemonicParsing="false" onAction="#changeScreenModifyCustomer" text="Modify" />
       <Button layoutX="227.0" layoutY="313.0" mnemonicParsing="false" onAction="#deleteCustomerDetails" text="Delete" />

@@ -1,6 +1,6 @@
 package software.ii.project;
 
-import CustomerDetails.CustomerDetailsController;
+import CustomerDetails.AddCustomerDetailsController;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;

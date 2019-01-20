@@ -1,7 +1,8 @@
 package MainScreen;
 
-import CustomerDetails.CustomerDetailsController;
+import CustomerDetails.AddCustomerDetailsController;
 import CustomerDetails.EditCustomerDetailsController;
+import AppointmentDetails.EditAppointmentDetailsController;
 import Models.Appointment;
 import Models.Customer;
 import Models.Days;
@@ -77,7 +78,7 @@ public class MainScreenController implements Initializable {
                               result.getString("Address"), result.getString("Email"), result.getString("Number")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddCustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         customerTable.setItems(customers);
@@ -103,7 +104,7 @@ public class MainScreenController implements Initializable {
                               result.getString("AppointmentTime"), result.getString("AppointmentType"), result.getString("CustomerName")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddCustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         appointmentTable.setItems(appointments);
@@ -111,7 +112,7 @@ public class MainScreenController implements Initializable {
     
     public void addCustomerDetails(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/CustomerDetails/CustomerDetails.fxml"));
+        loader.setLocation(getClass().getResource("/CustomerDetails/AddCustomerDetails.fxml"));
         Parent tableViewParent = loader.load();
 
         Scene tableViewScene = new Scene(tableViewParent);
@@ -147,5 +148,38 @@ public class MainScreenController implements Initializable {
         String sqlStatement = ("DELETE FROM customer_tbl WHERE CustomerID = " + selectedID + ";");
         statement.executeUpdate(sqlStatement);
         initCustomerTable();
+    }
+    
+    public void addAppointmentDetails(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/AppointmentDetails/AddAppointmentDetails.fxml"));
+        Parent tableViewParent = loader.load();
+
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+    
+    public void changeScreenModifyAppointment(ActionEvent event) throws IOException 
+    {
+        if(appointmentTable.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/AppointmentDetails/EditAppointmentDetails.fxml"));
+            Parent tableViewParent = loader.load();
+
+            Scene tableViewScene = new Scene(tableViewParent);
+
+            EditAppointmentDetailsController controller = loader.getController();
+            controller.initAppointmentData(appointmentTable.getSelectionModel().getSelectedItem(), 
+                    appointmentTable.getSelectionModel().selectedIndexProperty().get());
+
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+            window.setScene(tableViewScene);
+            window.show();
+        }
     }
 }

@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import static software.ii.project.DBConnection.conn;
 
 
-public class CustomerDetailsController implements Initializable {
+public class AddCustomerDetailsController implements Initializable {
     @FXML TextField customerName;
     @FXML TextField customerAddress;
     @FXML TextField customerEmail;
@@ -41,9 +41,9 @@ public class CustomerDetailsController implements Initializable {
         window.show();
     }
     
-    public void saveFunction(ActionEvent event) throws SQLException, IOException {
+    public void saveCustomerFunction(ActionEvent event) throws SQLException, IOException {
         Statement statement = conn.createStatement();
-        String sqlStatement = ("INSERT INTO `appointments_tbl`(CustomerID, AppointmentDate, AppointmentTime, AppointmentType, CustomerName) VALUE ('"+"1"+"','"+customerName.getText()+"','"+customerAddress.getText()+"','"+customerEmail.getText()+"','"+customerNumber.getText()+"')");
+        String sqlStatement = ("INSERT INTO `customer_tbl`(CustomerName, Address, Email, Number) VALUE ('"+customerName.getText()+"','"+customerAddress.getText()+"','"+customerEmail.getText()+"','"+customerNumber.getText()+"')");
         statement.executeUpdate(sqlStatement);
         
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/MainScreen/MainScreen.fxml"));
