@@ -2,11 +2,16 @@ package AppointmentDetails;
 
 import Models.Appointment;
 import Models.Customer;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,7 +49,26 @@ public class EditAppointmentDetailsController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        times.addAll("9:00AM","10:00AM","11:00AM","12:00PM","1:00PM","2:00PM","3:00PM","4:00PM","5:00PM");
+//        TimeZone myTimeZone = TimeZone.getDefault();
+        TimeZone myTimeZone = TimeZone.getTimeZone("GB");
+        
+        for(int i = 9; i <= 17; i++) {
+            Integer hr = i;
+            TimeZone.setDefault(TimeZone.getTimeZone("America/Los_Angeles"));
+            Calendar myCalendar = Calendar.getInstance();
+            myCalendar.set(Calendar.HOUR_OF_DAY, hr);
+            myCalendar.set(Calendar.MINUTE, 0);
+//            myCalendar.set(Calendar.DATE, 9);
+            System.out.println("US: " + myCalendar.getTime());
+            TimeZone.setDefault(myTimeZone);
+            System.out.println("Local Time: " + myCalendar.getTime());
+            
+            DateFormat dateFormat = new SimpleDateFormat("hh:mm a");  
+            String strDate = dateFormat.format(myCalendar.getTime());
+            System.out.println(strDate);
+            times.add(strDate);
+        }
+
         timesComboBox.setItems(times);
         
         consultantNames.addAll("Consultant 1", "Consultant 2", "Consultant 3");

@@ -1,5 +1,6 @@
 package MainScreen;
 
+import AppointmentDetails.AddAppointmentDetailsController;
 import CustomerDetails.AddCustomerDetailsController;
 import CustomerDetails.EditCustomerDetailsController;
 import AppointmentDetails.EditAppointmentDetailsController;
@@ -23,6 +24,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -169,16 +172,23 @@ public class MainScreenController implements Initializable {
     }
     
     public void addAppointmentDetails(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/AppointmentDetails/AddAppointmentDetails.fxml"));
-        Parent tableViewParent = loader.load();
+        if(customerTable.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/AppointmentDetails/AddAppointmentDetails.fxml"));
+            Parent tableViewParent = loader.load();
 
-        Scene tableViewScene = new Scene(tableViewParent);
+            Scene tableViewScene = new Scene(tableViewParent);
+            AddAppointmentDetailsController controller = loader.getController();
+            controller.initCustomerID(customerSelectedID);
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        window.setScene(tableViewScene);
-        window.show();
+            window.setScene(tableViewScene);
+            window.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Click on a Customer in the customer table before adding an appointment", ButtonType.OK);
+            alert.showAndWait();
+        }
     }
     
     public void changeScreenModifyAppointment(ActionEvent event) throws IOException 

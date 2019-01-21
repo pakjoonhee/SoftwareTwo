@@ -1,6 +1,7 @@
 
 package CustomerDetails;
 
+import Models.Customer;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -24,11 +25,10 @@ public class AddCustomerDetailsController implements Initializable {
     @FXML TextField customerEmail;
     @FXML TextField customerNumber;
     
-            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-    }    
+    } 
     
     public void changeScreenGoBack(ActionEvent event) throws IOException 
     {
