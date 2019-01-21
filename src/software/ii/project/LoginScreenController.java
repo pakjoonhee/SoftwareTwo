@@ -1,11 +1,14 @@
 package software.ii.project;
 
 import CustomerDetails.AddCustomerDetailsController;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -41,6 +44,18 @@ public class LoginScreenController implements Initializable {
     {
         // if(DBConnection.makeConnection(url, userNameField.getText(), passwordField.getText())) {
         if(DBConnection.makeConnection(url, "U05xD3", "53688636419")) {
+            Calendar myCalendar = Calendar.getInstance();
+            String timeStamp = Integer.toString(myCalendar.get(Calendar.HOUR_OF_DAY)) + ":" + Integer.toString(myCalendar.get(Calendar.MINUTE));
+            System.out.println(Calendar.HOUR_OF_DAY);
+            System.out.println(Calendar.MINUTE);
+            String currentDay = Integer.toString(myCalendar.get(Calendar.MONTH) + 1) + "-" + Integer.toString(myCalendar.get(Calendar.DATE)) + "-" + Integer.toString(myCalendar.get(Calendar.YEAR));
+            
+            String fileName = "loginHistory.txt", item;
+            FileWriter fwriter = new FileWriter(fileName, true);
+            PrintWriter outputFile = new PrintWriter(fwriter);
+            outputFile.println("DATE: " + currentDay + " TIME: " + timeStamp);
+            outputFile.close();
+            
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/MainScreen/MainScreen.fxml"));
             Parent tableViewParent = loader.load();
