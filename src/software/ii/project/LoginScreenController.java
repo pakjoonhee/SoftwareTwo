@@ -6,6 +6,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,8 +53,17 @@ public class LoginScreenController implements Initializable {
             window.show();
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "The username and password did not match!!", ButtonType.OK);
-            alert.showAndWait();
+            Locale myLocale = Locale.getDefault();
+            if(myLocale.getDisplayLanguage() == "French") {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Le nom d'utilisateur et le mot de passe ne correspondent pas !!", ButtonType.OK);
+                alert.showAndWait();
+            } else if(myLocale.getDisplayLanguage() == "Spanish") {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "El nombre de usuario y la contraseña no coinciden !!", ButtonType.OK);
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "The username and password did not match!!", ButtonType.OK);
+                alert.showAndWait();
+            }
         }
         
     }

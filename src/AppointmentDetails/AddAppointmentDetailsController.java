@@ -72,8 +72,8 @@ public class AddAppointmentDetailsController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        TimeZone myTimeZone = TimeZone.getDefault();
-        TimeZone myTimeZone = TimeZone.getTimeZone("GB");
+        TimeZone myTimeZone = TimeZone.getDefault();
+//        TimeZone myTimeZone = TimeZone.getTimeZone("GB");
         
         for(int i = 9; i <= 17; i++) {
             Integer hr = i;

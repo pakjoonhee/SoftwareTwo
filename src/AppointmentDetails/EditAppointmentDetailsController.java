@@ -70,8 +70,9 @@ public class EditAppointmentDetailsController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        TimeZone myTimeZone = TimeZone.getDefault();
-        TimeZone myTimeZone = TimeZone.getTimeZone("GB");
+        TimeZone myTimeZone = TimeZone.getDefault();
+//        TimeZone myTimeZone = TimeZone.getTimeZone("GB");
+        System.out.println(myTimeZone);
         
         for(int i = 9; i <= 17; i++) {
             Integer hr = i;
@@ -79,10 +80,7 @@ public class EditAppointmentDetailsController implements Initializable {
             Calendar myCalendar = Calendar.getInstance();
             myCalendar.set(Calendar.HOUR_OF_DAY, hr);
             myCalendar.set(Calendar.MINUTE, 0);
-//            myCalendar.set(Calendar.DATE, 9);
-            System.out.println("US: " + myCalendar.getTime());
             TimeZone.setDefault(myTimeZone);
-            System.out.println("Local Time: " + myCalendar.getTime());
             
             DateFormat dateFormat = new SimpleDateFormat("hh:mm a");  
             String strDate = dateFormat.format(myCalendar.getTime());
