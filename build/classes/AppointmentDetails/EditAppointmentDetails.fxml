@@ -25,7 +25,7 @@
                   <TextField accessibleRole="BUTTON" disable="true" editable="false" promptText="Auto Gen - Disabled" />
                </children>
             </HBox>
-            <HBox prefHeight="41.0" prefWidth="198.0">
+            <HBox prefHeight="41.0" prefWidth="323.0">
                <children>
                   <Label prefWidth="100.0" text="Date">
                      <HBox.margin>
@@ -35,11 +35,9 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <TextField fx:id="appointmentDate">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
+                  <ComboBox fx:id="months" onAction="#handleMonthBox" prefHeight="25.0" prefWidth="60.0" />
+                  <ComboBox fx:id="days" onAction="#handleDayBox" prefHeight="25.0" prefWidth="60.0" />
+                  <ComboBox fx:id="years" onAction="#handleYearBox" prefHeight="25.0" prefWidth="80.0" />
                </children>
             </HBox>
             <HBox prefHeight="41.0" prefWidth="198.0">
