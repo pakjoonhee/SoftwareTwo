@@ -5,18 +5,23 @@ import CustomerDetails.AddCustomerDetailsController;
 import CustomerDetails.EditCustomerDetailsController;
 import AppointmentDetails.EditAppointmentDetailsController;
 import Models.Appointment;
+import Models.ConsultantReport;
 import Models.Customer;
 import Models.Days;
 import Models.NumberAppTypes;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -59,9 +64,10 @@ public class MainScreenController implements Initializable {
     private Integer appointmentSelectedID;
     private String selectedReport;
     private ArrayList<NumberAppTypes> SQLresult;
+    private ArrayList<ConsultantReport> consultantReport;
     
     @FXML
-    void handleReportType(ActionEvent event) throws IOException {
+    void handleReportType(ActionEvent event) throws IOException, SQLException {
         selectedReport = comboReports.getValue();
         if(selectedReport.equals("Num of Appointment Types")) {
             String fileName = "numAppTypes.txt", item;
@@ -74,15 +80,19 @@ public class MainScreenController implements Initializable {
             }
             outputFile.close();
         } else if(selectedReport.equals("Consultant Schedules")) {
-            
-        } else if(selectedReport.equals("Customers in Area Code")) {
+            File f = new File("consultantReport.txt");
+            if(f.exists()) {
+                f.delete();
+            }
+            consultantReport();
+        } else if(selectedReport.equals("Customers attending WGU")) {
             
         }
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        reportTypes.addAll("Num of Appointment Types", "Consultant Schedules", "Customers in Area Code");
+    public void initialize(URL url, ResourceBundle rb) {             
+        reportTypes.addAll("Num of Appointment Types", "Consultant Schedules", "Customers attending WGU");
         comboReports.setItems(reportTypes);
         initCustomerTable();
         numTypeReport();
@@ -199,6 +209,29 @@ public class MainScreenController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(AddCustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void consultantReport() throws IOException, SQLException {
+        String fileName = "consultantReport.txt", item;
+        FileWriter fwriter = new FileWriter(fileName, true);
+        PrintWriter outputFile = new PrintWriter(fwriter);
+        
+        String string = "Consultant" + 1;
+        PreparedStatement ps = conn.prepareStatement(
+              "SELECT * FROM appointments_tbl WHERE CustomerName = ?");
+        ps.setString(1, string);
+        ResultSet result = ps.executeQuery();
+        outputFile.println("Consultant 1");
+
+        while(result.next()) 
+        {
+            outputFile.println("DATE: " + result.getString("AppointmentDate") + " TIME: " + result.getString("AppointmentTime"));
+        }
+        ps.close();
+        outputFile.close();
+        
+        
+
     }
     
     public void addCustomerDetails(ActionEvent event) throws IOException {
