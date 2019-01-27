@@ -5,7 +5,6 @@ import CustomerDetails.AddCustomerDetailsController;
 import CustomerDetails.EditCustomerDetailsController;
 import AppointmentDetails.EditAppointmentDetailsController;
 import Models.Appointment;
-import Models.ConsultantReport;
 import Models.Customer;
 import Models.Days;
 import Models.NumberAppTypes;
@@ -64,7 +63,6 @@ public class MainScreenController implements Initializable {
     private Integer appointmentSelectedID;
     private String selectedReport;
     private ArrayList<NumberAppTypes> SQLresult;
-    private ArrayList<ConsultantReport> consultantReport;
     
     @FXML
     void handleReportType(ActionEvent event) throws IOException, SQLException {
@@ -86,7 +84,7 @@ public class MainScreenController implements Initializable {
             }
             consultantReport();
         } else if(selectedReport.equals("Customers attending WGU")) {
-            
+            wguStudentsReport();
         }
     }
     
@@ -97,6 +95,16 @@ public class MainScreenController implements Initializable {
         initCustomerTable();
         numTypeReport();
     }    
+    
+//    public void fifteenMinutes() throws SQLException {
+//        Statement statement = conn.createStatement();
+//            String sqlStatement = "SELECT * FROM appointments_tbl";
+//            ResultSet result = statement.executeQuery(sqlStatement);
+//            
+//            while(result.next()) {
+//                
+//            }
+//    }
     
     public void ifRowClicked() {
         Customer selectedRow = customerTable.getSelectionModel().getSelectedItem();
@@ -216,22 +224,41 @@ public class MainScreenController implements Initializable {
         FileWriter fwriter = new FileWriter(fileName, true);
         PrintWriter outputFile = new PrintWriter(fwriter);
         
-        String string = "Consultant" + 1;
+        for(int i = 1; i <=3; i++) {
+            String string = "Consultant" + i;
+            PreparedStatement ps = conn.prepareStatement(
+                  "SELECT * FROM appointments_tbl WHERE CustomerName = ?");
+            ps.setString(1, string);
+            ResultSet result = ps.executeQuery();
+            outputFile.println("Consultant" + i);
+
+            while(result.next()) 
+            {
+                outputFile.println("DATE: " + result.getString("AppointmentDate") + " TIME: " + result.getString("AppointmentTime"));
+            }
+            ps.close();
+        }
+        outputFile.close();
+    }
+    
+    public void wguStudentsReport() throws IOException, SQLException {
+        String fileName = "wguStudentsReport.txt", item;
+        PrintWriter outputFile = new PrintWriter(fileName);
+        
+        String string = "Consultant";
         PreparedStatement ps = conn.prepareStatement(
-              "SELECT * FROM appointments_tbl WHERE CustomerName = ?");
-        ps.setString(1, string);
+              "SELECT * FROM customer_tbl");
         ResultSet result = ps.executeQuery();
-        outputFile.println("Consultant 1");
+        outputFile.println("Customers Attending WGU");
 
         while(result.next()) 
         {
-            outputFile.println("DATE: " + result.getString("AppointmentDate") + " TIME: " + result.getString("AppointmentTime"));
+            if(result.getString("Email").contains("@wgu.edu")) {
+                outputFile.println("Name: " + result.getString("CustomerName") + " Email: " + result.getString("Email") + " Address: " + result.getString("Address"));
+            }
         }
         ps.close();
         outputFile.close();
-        
-        
-
     }
     
     public void addCustomerDetails(ActionEvent event) throws IOException {
@@ -320,4 +347,6 @@ public class MainScreenController implements Initializable {
             window.show();
         }
     }
+    
+    
 }
