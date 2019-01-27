@@ -7,11 +7,15 @@ import AppointmentDetails.EditAppointmentDetailsController;
 import Models.Appointment;
 import Models.Customer;
 import Models.Days;
+import Models.NumberAppTypes;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,10 +58,26 @@ public class MainScreenController implements Initializable {
     private Integer customerSelectedID;
     private Integer appointmentSelectedID;
     private String selectedReport;
+    private ArrayList<NumberAppTypes> SQLresult;
     
     @FXML
-    void handleReportType(ActionEvent event) {
+    void handleReportType(ActionEvent event) throws IOException {
         selectedReport = comboReports.getValue();
+        if(selectedReport.equals("Num of Appointment Types")) {
+            String fileName = "numAppTypes.txt", item;
+            PrintWriter outputFile = new PrintWriter(fileName);
+            for(int i = 0; i < SQLresult.size(); i++) {
+                outputFile.println("Month " + SQLresult.get(i).getMonth() + "-" + "Counseling:" + 
+                                   SQLresult.get(i).getCounselingCount() + " " + "Tutoring:" + 
+                                   SQLresult.get(i).getTutoringCount() + " " + "Mentoring:" + 
+                                   SQLresult.get(i).getMentoringCount() + " ");
+            }
+            outputFile.close();
+        } else if(selectedReport.equals("Consultant Schedules")) {
+            
+        } else if(selectedReport.equals("Customers in Area Code")) {
+            
+        }
     }
     
     @Override
@@ -65,6 +85,7 @@ public class MainScreenController implements Initializable {
         reportTypes.addAll("Num of Appointment Types", "Consultant Schedules", "Customers in Area Code");
         comboReports.setItems(reportTypes);
         initCustomerTable();
+        numTypeReport();
     }    
     
     public void ifRowClicked() {
@@ -136,21 +157,49 @@ public class MainScreenController implements Initializable {
         appointmentTable.setItems(appointments);
     }
     
-//    public void numTypeReport() {
-//        try {
-//            Statement statement = conn.createStatement();
-//            String sqlStatement = "SELECT * FROM appointments_tbl WHERE CustomerID=" + selectedID;
-//            ResultSet result = statement.executeQuery(sqlStatement);
-//            
-//            while(result.next()) 
-//            {
-//                customers.add(new Customer(result.getInt("CustomerID"), result.getString("CustomerName"), 
-//                              result.getString("Address"), result.getString("Email"), result.getString("Number")));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(AddCustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public void numTypeReport() {
+        try {
+            Statement statement = conn.createStatement();
+            String sqlStatement = "SELECT * FROM appointments_tbl";
+            ResultSet result = statement.executeQuery(sqlStatement);
+            
+            ArrayList<String> monthList = new ArrayList<>();
+            SQLresult = new ArrayList<>();
+            
+            while(result.next()) 
+            {
+                String month = result.getString("AppointmentDate").substring(0, 2);
+                String appType = result.getString("AppointmentType");
+                if(!monthList.contains(month)) {
+                    monthList.add(month);
+                    if(appType.equals("Counseling")) {
+                        SQLresult.add(new NumberAppTypes(month, 1, 0, 0));
+                    } else if(appType.equals("Tutoring")) {
+                        SQLresult.add(new NumberAppTypes(month, 0, 1, 0));
+                    } else if(appType.equals("Mentoring")) {
+                        SQLresult.add(new NumberAppTypes(month, 0, 0, 1));
+                    } 
+                } else {
+                    for(int i=0; i < SQLresult.size(); i++) {
+                        if(SQLresult.get(i).getMonth().equals(month)) {
+                            if(appType.equals("Counseling")) {
+                                Integer count = SQLresult.get(i).getCounselingCount() + 1;
+                                SQLresult.get(i).setCounselingCount(count);
+                            } else if(appType.equals("Tutoring")) {
+                                Integer count = SQLresult.get(i).getTutoringCount() + 1;
+                                SQLresult.get(i).setTutoringCount(count);
+                            } else if(appType.equals("Mentoring")) {
+                                Integer count = SQLresult.get(i).getMentoringCount() + 1;
+                                SQLresult.get(i).setMentoringCount(count);
+                            } 
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddCustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void addCustomerDetails(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();

@@ -98,7 +98,7 @@ public class EditAppointmentDetailsController implements Initializable {
         monthList.addAll("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
         dayList.addAll("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", 
                        "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31");
-        yearList.addAll("2019", "2020", "2021");
+        yearList.addAll("2019");
         appTypeList.addAll("Counseling", "Mentoring", "Tutoring");
         
         timesComboBox.setItems(times);
@@ -167,5 +167,4 @@ public class EditAppointmentDetailsController implements Initializable {
           throw se;
         }
     }
-    
 }
