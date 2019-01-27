@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,7 +19,7 @@
           <TableColumn fx:id="customerNumber" prefWidth="129.0" text="Number" />
         </columns>
       </TableView>
-      <TableView fx:id="appointmentTable" layoutX="157.0" layoutY="372.0" onMouseClicked="#ifAppointmentRowClicked" prefHeight="239.0" prefWidth="587.0">
+      <TableView fx:id="appointmentTable" layoutX="103.0" layoutY="381.0" onMouseClicked="#ifAppointmentRowClicked" prefHeight="239.0" prefWidth="587.0">
         <columns>
             <TableColumn fx:id="appointmentKeyID" prefWidth="75.0" text="Key ID" />
             <TableColumn fx:id="appointmentCustomerID" prefWidth="76.0" text="Cust ID" />
@@ -33,16 +34,22 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text layoutX="162.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment Details">
+      <Text layoutX="108.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment Details">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
       <Button fx:id="addCustomerDetailsButton" layoutX="110.0" layoutY="313.0" mnemonicParsing="false" onAction="#addCustomerDetails" text="Add" />
-      <Button layoutX="194.0" layoutY="628.0" mnemonicParsing="false" onAction="#addAppointmentDetails" text="Add" />
-      <Button layoutX="242.0" layoutY="628.0" mnemonicParsing="false" onAction="#changeScreenModifyAppointment" text="Modify" />
-      <Button layoutX="308.0" layoutY="628.0" mnemonicParsing="false" onAction="#deleteAppointmentDetails" text="Delete" />
+      <Button layoutX="108.0" layoutY="636.0" mnemonicParsing="false" onAction="#addAppointmentDetails" text="Add" />
+      <Button layoutX="156.0" layoutY="636.0" mnemonicParsing="false" onAction="#changeScreenModifyAppointment" text="Modify" />
+      <Button layoutX="222.0" layoutY="636.0" mnemonicParsing="false" onAction="#deleteAppointmentDetails" text="Delete" />
       <Button layoutX="158.0" layoutY="313.0" mnemonicParsing="false" onAction="#changeScreenModifyCustomer" text="Modify" />
       <Button layoutX="227.0" layoutY="313.0" mnemonicParsing="false" onAction="#deleteCustomerDetails" text="Delete" />
+      <ComboBox fx:id="comboReports" layoutX="715.0" layoutY="381.0" onAction="#handleReportType" prefWidth="150.0" />
+      <Text layoutX="744.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Print Reports">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

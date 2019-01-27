@@ -26,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +34,9 @@ import javafx.stage.Stage;
 import static software.ii.project.DBConnection.conn;
 
 public class MainScreenController implements Initializable {
+    @FXML private ComboBox<String> comboReports;
+    ObservableList<String> reportTypes = FXCollections.observableArrayList();
+    
     @FXML private TableView<Customer> customerTable;
     @FXML private TableColumn<Customer, Integer> customerID;
     @FXML private TableColumn<Customer, String> customerName;
@@ -49,9 +53,17 @@ public class MainScreenController implements Initializable {
     @FXML private TableColumn<Appointment, String> consultantName;
     private Integer customerSelectedID;
     private Integer appointmentSelectedID;
+    private String selectedReport;
+    
+    @FXML
+    void handleReportType(ActionEvent event) {
+        selectedReport = comboReports.getValue();
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        reportTypes.addAll("Num of Appointment Types", "Consultant Schedules", "Customers in Area Code");
+        comboReports.setItems(reportTypes);
         initCustomerTable();
     }    
     
@@ -123,6 +135,22 @@ public class MainScreenController implements Initializable {
         
         appointmentTable.setItems(appointments);
     }
+    
+//    public void numTypeReport() {
+//        try {
+//            Statement statement = conn.createStatement();
+//            String sqlStatement = "SELECT * FROM appointments_tbl WHERE CustomerID=" + selectedID;
+//            ResultSet result = statement.executeQuery(sqlStatement);
+//            
+//            while(result.next()) 
+//            {
+//                customers.add(new Customer(result.getInt("CustomerID"), result.getString("CustomerName"), 
+//                              result.getString("Address"), result.getString("Email"), result.getString("Number")));
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(AddCustomerDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
     public void addCustomerDetails(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();

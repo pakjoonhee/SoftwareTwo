@@ -1,8 +1,6 @@
 package AppointmentDetails;
 
 import Models.Appointment;
-import Models.Customer;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -32,12 +30,14 @@ public class EditAppointmentDetailsController implements Initializable {
     @FXML ComboBox<String> months;
     @FXML ComboBox<String> days;
     @FXML ComboBox<String> years;
+    @FXML ComboBox<String> appType;
     
     ObservableList<String> times = FXCollections.observableArrayList();
     ObservableList<String> consultantNames = FXCollections.observableArrayList();
     ObservableList<String> monthList = FXCollections.observableArrayList();
     ObservableList<String> dayList = FXCollections.observableArrayList();
     ObservableList<String> yearList = FXCollections.observableArrayList();
+    ObservableList<String> appTypeList = FXCollections.observableArrayList();
     
     private String selectedTime;
     private String selectedConsultant;
@@ -46,6 +46,7 @@ public class EditAppointmentDetailsController implements Initializable {
     private String selectedYear;
     @FXML TextField appointmentType;
     private Appointment appointment;
+    private String selectedType;
     
     @FXML
     void handleTimeBox(ActionEvent event) {
@@ -66,6 +67,10 @@ public class EditAppointmentDetailsController implements Initializable {
     @FXML
     void handleYearBox(ActionEvent event) {
         selectedYear = years.getValue();
+    }
+    @FXML
+    void handleAppType(ActionEvent event) {
+        selectedType = appType.getValue();
     }
     
     @Override
@@ -94,12 +99,14 @@ public class EditAppointmentDetailsController implements Initializable {
         dayList.addAll("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", 
                        "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31");
         yearList.addAll("2019", "2020", "2021");
+        appTypeList.addAll("Counseling", "Mentoring", "Tutoring");
         
         timesComboBox.setItems(times);
         consultantNamesComboBox.setItems(consultantNames);
         months.setItems(monthList);
         days.setItems(dayList);
         years.setItems(yearList);
+        appType.setItems(appTypeList);
     }    
     
     public void initAppointmentData(Appointment appointment, Integer rowNumber) {
@@ -113,7 +120,8 @@ public class EditAppointmentDetailsController implements Initializable {
         years.getSelectionModel().select(splitDate[2]);
         timesComboBox.getSelectionModel().select(appointment.getAppointmentTime());
         selectedTime = appointment.getAppointmentTime();
-        appointmentType.setText(appointment.getAppointmentType());
+        appType.getSelectionModel().select(appointment.getAppointmentType());
+        selectedType = appointment.getAppointmentType();
         consultantNamesComboBox.getSelectionModel().select(appointment.getConsultantName());
         selectedConsultant = appointment.getConsultantName();
      } 
@@ -139,7 +147,7 @@ public class EditAppointmentDetailsController implements Initializable {
 
             ps.setString(1,date);
             ps.setString(2,selectedTime);
-            ps.setString(3,appointmentType.getText());
+            ps.setString(3,selectedType);
             ps.setString(4,selectedConsultant);
             ps.setInt(5,appointment.getKeyID());
 

@@ -29,12 +29,14 @@ public class AddAppointmentDetailsController implements Initializable {
     @FXML ComboBox<String> months;
     @FXML ComboBox<String> days;
     @FXML ComboBox<String> years;
+    @FXML ComboBox<String> appType;
     
     ObservableList<String> times = FXCollections.observableArrayList();
     ObservableList<String> consultantNames = FXCollections.observableArrayList();
     ObservableList<String> monthList = FXCollections.observableArrayList();
     ObservableList<String> dayList = FXCollections.observableArrayList();
     ObservableList<String> yearList = FXCollections.observableArrayList();
+    ObservableList<String> appTypeList = FXCollections.observableArrayList();
     
     private String selectedTime;
     private String selectedConsultant;
@@ -44,6 +46,7 @@ public class AddAppointmentDetailsController implements Initializable {
     @FXML TextField appointmentDate;
     @FXML TextField appointmentType;
     private Integer customerID;
+    private String selectedType;
     
     @FXML
     void handleTimeBox(ActionEvent event) {
@@ -64,6 +67,10 @@ public class AddAppointmentDetailsController implements Initializable {
     @FXML
     void handleYearBox(ActionEvent event) {
         selectedYear = years.getValue();
+    }
+    @FXML
+    void handleAppType(ActionEvent event) {
+        selectedType = appType.getValue();
     }
     
     public void initCustomerID(Integer customerID) {
@@ -97,18 +104,20 @@ public class AddAppointmentDetailsController implements Initializable {
         dayList.addAll("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", 
                        "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31");
         yearList.addAll("2019", "2020", "2021");
+        appTypeList.addAll("Counseling", "Mentoring", "Tutoring");
         
         timesComboBox.setItems(times);
         consultantNamesComboBox.setItems(consultantNames);
         months.setItems(monthList);
         days.setItems(dayList);
         years.setItems(yearList);
+        appType.setItems(appTypeList);
     }
 
     public void saveFunction(ActionEvent event) throws SQLException, IOException {
         String date = selectedMonth + "-" + selectedDay + "-" + selectedYear;
         Statement statement = conn.createStatement();
-        String sqlStatement = ("INSERT INTO `appointments_tbl`(CustomerID, AppointmentDate, AppointmentTime, AppointmentType, CustomerName) VALUE ('"+customerID+"','"+date+"','"+selectedTime+"','"+appointmentType.getText()+"','"+selectedConsultant+"')");
+        String sqlStatement = ("INSERT INTO `appointments_tbl`(CustomerID, AppointmentDate, AppointmentTime, AppointmentType, CustomerName) VALUE ('"+customerID+"','"+date+"','"+selectedTime+"','"+selectedType+"','"+selectedConsultant+"')");
         statement.executeUpdate(sqlStatement);
         
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/MainScreen/MainScreen.fxml"));
