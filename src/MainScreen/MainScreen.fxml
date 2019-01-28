@@ -51,5 +51,6 @@
             <Font size="16.0" />
          </font>
       </Text>
+      <ComboBox fx:id="weekMonthCalendar" layoutX="300.0" layoutY="354.0" onAction="#handleMonthWeek" prefWidth="150.0" />
     </children>
 </AnchorPane>
