@@ -115,10 +115,12 @@ public class MainScreenController implements Initializable {
     }
     
     @FXML 
-    void handleMonthWeek(ActionEvent even) throws SQLException {
+    void handleMonthWeek(ActionEvent even) throws SQLException, ParseException {
         selectedMonthWeek = weekMonthCalendar.getValue();
         if (selectedMonthWeek.equals("View By Month")) {
             viewAppointmentsMonth();
+        } else if (selectedMonthWeek.equals("View By Week")) {
+            viewAppointmentsWeek();
         }
     }
 
@@ -264,6 +266,52 @@ public class MainScreenController implements Initializable {
             if (month.equals("01")) {
                 appointments.add(new Appointment(result.getInt("KeyID"), result.getInt("CustomerID"), result.getString("AppointmentDate"),
                         result.getString("AppointmentTime"), result.getString("AppointmentType"), result.getString("CustomerName")));
+            }
+        }
+        ps.close();
+        
+        appointmentTable.setItems(appointments);
+    }
+    
+    public void viewAppointmentsWeek() throws ParseException, SQLException {
+        ArrayList<Date> dateArrayList = new ArrayList<>();
+        Calendar myCalendar = Calendar.getInstance();
+        String currentDay = Integer.toString(myCalendar.get(Calendar.MONTH) + 1) + "-" + Integer.toString(myCalendar.get(Calendar.DATE)) + "-" + Integer.toString(myCalendar.get(Calendar.YEAR));
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        Date date1 = sdf.parse(currentDay);
+        dateArrayList.add(date1);
+        
+        for(int i = 1; i <= 7; i++) {
+            myCalendar.add(Calendar.DAY_OF_YEAR, 1);
+            String nextDay = Integer.toString(myCalendar.get(Calendar.MONTH) + 1) + "-" + Integer.toString(myCalendar.get(Calendar.DATE)) + "-" + Integer.toString(myCalendar.get(Calendar.YEAR));
+            Date tempDate = sdf.parse(nextDay);
+            dateArrayList.add(tempDate);
+            
+        }
+        
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        appointmentKeyID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("keyID"));
+        appointmentCustomerID.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("customerID"));
+        appointmentDate.setCellValueFactory(new PropertyValueFactory<Appointment, String>("appointmentDate"));
+        appointmentTime.setCellValueFactory(new PropertyValueFactory<Appointment, String>("appointmentTime"));
+        appointmentType.setCellValueFactory(new PropertyValueFactory<Appointment, String>("appointmentType"));
+        consultantName.setCellValueFactory(new PropertyValueFactory<Appointment, String>("consultantName"));
+        
+        PreparedStatement ps = conn.prepareStatement(
+                "SELECT * FROM appointments_tbl");
+        
+        ResultSet result = ps.executeQuery();
+        while (result.next()) {
+            String appointmentDate = result.getString("AppointmentDate");
+            Date date2 = sdf.parse(appointmentDate);
+            
+            for(int i=0; i < dateArrayList.size(); i++) {
+                Date blah = dateArrayList.get(i);
+                if (dateArrayList.get(i).compareTo(date2) == 0) {
+                    appointments.add(new Appointment(result.getInt("KeyID"), result.getInt("CustomerID"), result.getString("AppointmentDate"),
+                            result.getString("AppointmentTime"), result.getString("AppointmentType"), result.getString("CustomerName")));
+                    break;
+                }
             }
         }
         ps.close();
